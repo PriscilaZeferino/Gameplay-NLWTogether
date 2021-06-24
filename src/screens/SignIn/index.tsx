@@ -1,14 +1,27 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import {Text, View, Image } from 'react-native'
 
 import {styles} from './styles'
 
 import IllustrationImg from '../../assets/illustration.png'
 import { ButtonIcon } from '../../Components/ButtonComponent'
+
 export function SignIn() {
+
+  const navigation = useNavigation();
+
+  function handleSignIn(){
+    navigation.navigate('Home');
+  }
+
   return (
     <View style={styles.container}  >
-      <Image source={IllustrationImg} style={styles.image} />
+      <Image 
+        source={IllustrationImg} 
+        style={styles.image} 
+        resizeMode="stretch"
+      />
       <View style={styles.content} accessible={true} >
         <Text style={styles.title} accessibilityRole="text">
             Conecte-se {'\n'} 
@@ -20,7 +33,12 @@ export function SignIn() {
           Crie grupos para jogar seus games {'\n'}
           favoritos com seus amigos
         </Text>
-        <ButtonIcon title="Entrar com discord"  activeOpacity={0.7}/>
+        <ButtonIcon 
+          title="Entrar com discord"  
+          activeOpacity={0.7} 
+          onPress={handleSignIn}
+          accessibilityRole="text"  
+        />
       </View>
     </View>
   );
