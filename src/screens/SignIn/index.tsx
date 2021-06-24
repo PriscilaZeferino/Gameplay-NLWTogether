@@ -35,9 +35,7 @@ export function SignIn() {
         </Text>
         <ButtonIcon 
           title="Entrar com discord"  
-          activeOpacity={0.7} 
           onPress={handleSignIn}
-          accessibilityRole="text"  
         />
       </View>
     </View>
