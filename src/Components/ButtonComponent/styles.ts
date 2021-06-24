@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
         height: 56,
         justifyContent: "center",
         borderRightWidth: 1,
-        borderColor: theme.colors.lime,
+        borderColor: theme.colors.line,
         alignItems: "center"
     },
     icon: {
