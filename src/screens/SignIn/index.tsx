@@ -1,5 +1,5 @@
 import React from 'react';
-import {StatusBar, Text, View, Image } from 'react-native'
+import {Text, View, Image } from 'react-native'
 
 import {styles} from './styles'
 
