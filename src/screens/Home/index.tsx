@@ -9,6 +9,7 @@ import {Appointment} from '../../Components/Appointment'
 import { ListDivider } from '../../Components/ListDivider';
 
 import { styles } from './styles';
+import { Background } from '../../Components/Background';
 
 export function Home ()
 {
@@ -47,7 +48,7 @@ export function Home ()
     }
 
     return(
-        <View>
+        <Background>
             <View style={styles.header}>
                 <Profile/>
                 <ButtonAdd/>
@@ -78,6 +79,6 @@ export function Home ()
                 </View>
 
             </View>
-        </View>
+        </Background>
     )
 }

@@ -6,6 +6,7 @@ import {styles} from './styles'
 
 import IllustrationImg from '../../assets/illustration.png'
 import { ButtonIcon } from '../../Components/ButtonComponent'
+import { Background } from '../../Components/Background';
 
 export function SignIn() {
 
@@ -16,6 +17,7 @@ export function SignIn() {
   }
 
   return (
+    <Background>
     <View style={styles.container}  >
       <Image 
         source={IllustrationImg} 
@@ -39,6 +41,7 @@ export function SignIn() {
         />
       </View>
     </View>
+    </Background>
   );
 }
 
