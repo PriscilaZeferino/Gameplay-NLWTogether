@@ -10,6 +10,7 @@ import { ListDivider } from '../../Components/ListDivider';
 
 import { styles } from './styles';
 import { Background } from '../../Components/Background';
+import { useNavigation } from '@react-navigation/native';
 
 export function Home ()
 {
@@ -43,15 +44,24 @@ export function Home ()
         }
     ]
 
+    const navigation =  useNavigation();
+
     function handleCategorySelect(categoryId: string) {
         categoryId === category ? setCategory('') : setCategory(categoryId)
     }
 
+    function handleAppointmentDetails () {
+        navigation.navigate('AppointmentDetails')
+    }
+
+    function handleAppointmentCreate () {
+        navigation.navigate('AppointmentCreate')
+    }
     return(
         <Background>
             <View style={styles.header}>
                 <Profile/>
-                <ButtonAdd/>
+                <ButtonAdd onPress={handleAppointmentCreate}/>
             </View>
             <View>
                 <CategorySelect
@@ -69,7 +79,9 @@ export function Home ()
                         data={appoinments}
                         keyExtractor={item => item.id}
                         renderItem={({item}) =>
-                            <Appointment data={item}/>                            
+                            <Appointment data={item}
+                                onPress={handleAppointmentDetails}
+                            />                            
                         }
                         ItemSeparatorComponent={() => <ListDivider/>}
                         style={styles.matches}

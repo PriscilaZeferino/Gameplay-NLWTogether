@@ -13,7 +13,6 @@ import {Background} from './src/Components/Background'
 
 export default function App() {
 
-
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
     Inter_500Medium,
@@ -23,7 +22,7 @@ export default function App() {
 
   if(!fontsLoaded)
   {
-    return <AppLoading/>
+     return <AppLoading/>
   }
 
   return (
@@ -32,5 +31,7 @@ export default function App() {
       <Routes/>
     </Background>
   )
+  
 }
+
 

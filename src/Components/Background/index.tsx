@@ -1,12 +1,6 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React, {ReactNode} from 'react'
-import {
-    Text, 
-    Image,
-    View,
-    TouchableOpacity,
-    TouchableOpacityProps,
-} from 'react-native'
+
 import { theme } from '../../global/styles/theme';
 import { styles } from './styles'
 
