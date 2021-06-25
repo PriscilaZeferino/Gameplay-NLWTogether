@@ -30,7 +30,9 @@ export function Guilds ({handleGuildSelect} : Props){
     ]
     
     return(
-        <View style={styles.container}>
+        <View style={styles.container} 
+            accessible={true}
+        >
             <FlatList
                 data={guilds}
                 keyExtractor={item => item.id}

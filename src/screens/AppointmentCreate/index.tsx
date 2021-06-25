@@ -63,7 +63,13 @@ export function AppointmentCreate() {
 
             <View style={styles.form}>
                 <RectButton onPress={handleOpenGuilds}>
-                    <View style={styles.select}>
+                    <View 
+                        style={styles.select} 
+                        accessible={true}
+                        accessibilityRole="button"
+                        accessibilityHint={guild.name ? "Servidor" + guild.name + "selecionado. Toque-me para selecionar outro servidor." : "Nenhum Servidor Selecionado. Toque-me para selecionar"}
+         
+                    >
 
                         {
                             guild.icon ? <GuildIcon/> :  <View style={styles.image}/>
@@ -71,7 +77,9 @@ export function AppointmentCreate() {
                         }
 
                         <View style={styles.selectBody}>
-                            <Text style={styles.label}>
+                            <Text style={styles.label}
+        
+                            >
                                 {
                                     guild.name ? guild.name : 'Selecione um servidor'
                                 }
@@ -122,9 +130,14 @@ export function AppointmentCreate() {
                     <Button title="Agendar"/>
                 </View>
             </View>
+
             </ScrollView>
-            <ModalView visible={openGuildsModal}>
-                <Guilds handleGuildSelect={handleGuildSelect}/>
+            <ModalView 
+                visible={openGuildsModal}
+            >
+                <Guilds 
+                    handleGuildSelect={handleGuildSelect}
+                />
             </ModalView>
         </KeyboardAvoidingView>
     )

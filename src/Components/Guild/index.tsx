@@ -23,18 +23,25 @@ export function Guild({data, ...rest}: Props) {
         <TouchableOpacity
             style={styles.container}
             activeOpacity={0.7}
-
             {...rest}
-
         >
             <GuildIcon/>
 
             <View style={styles.content}>
-                <View>
-                    <Text style={styles.title}>
+                <View >
+                    <Text 
+                        style={styles.title} 
+                        accessibilityRole="text"
+                        accessibilityHint={"Selecionar servidor" + data.name }
+
+                    >
                         {data.name}
                     </Text>
-                    <Text style={styles.type}>
+                    <Text style={styles.type} 
+                        accessibilityRole="text"
+                        accessibilityHint= {data.owner ? 'Administrador' : 'Convidado'}
+
+                    >
                         {data.owner ? 'Administrador' : 'Convidado'}
                     </Text>
                 </View>

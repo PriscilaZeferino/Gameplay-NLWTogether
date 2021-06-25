@@ -11,6 +11,7 @@ export function GuildIcon() {
             source={{uri}}
             style={styles.image}
             resizeMode="cover"
+            accessibilityRole="image"
         />
     )
 }
