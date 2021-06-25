@@ -11,18 +11,21 @@ import {
 
 import DiscordImg from '../../assets/discord.png'
 import {styles} from './styles';
+import { TouchableOpacityProps } from 'react-native';
 
-type Props = RectButtonProps & {
+type Props = RectButtonProps & TouchableOpacityProps & {
     title: string,
 }
 export function Button({title, ...rest}:Props) {
     return (
         <RectButton 
             style={styles.container}
+            accessibilityRole="button"
             {...rest}
         >
-
-            <Text style={styles.title} accessibilityLabel={title}>
+            <Text style={styles.title}
+                accessibilityRole="text"
+                accessibilityLabel={title}>
                 {title}
             </Text>
         </RectButton>

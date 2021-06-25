@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import {Text, View, Image } from 'react-native'
+import {Text, View, Image, TouchableOpacity } from 'react-native'
 
 import {styles} from './styles'
 
@@ -38,6 +38,7 @@ export function SignIn() {
         <ButtonIcon 
           title="Entrar com discord"  
           onPress={handleSignIn}
+          accessibilityLabel="Conectar com Discord"
         />
       </View>
     </View>

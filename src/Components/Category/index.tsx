@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import {View, Text} from 'react-native'
 
@@ -23,11 +23,17 @@ export function Category ({title, icon: Icon, checked = false, hasCheckBox = fal
         
         const {secondary40, secondary50, secondary70, secondary85} = theme.colors;
 
+        const [selecionada, setSelecionada] = useState('');
+
         return (
             <RectButton {...rest}>
                 <LinearGradient
                     style={styles.container}
                     colors={[secondary50, secondary70]}
+                    accessibilityHint={
+                        checked ?  'Categoria' + title + ' já está selecionada' :
+                        "Selecionar Categoria" + title
+                    }
                 >
                     <LinearGradient 
                         style={[styles.content, {opacity: checked ? 1 : 0.5}]}
@@ -43,7 +49,7 @@ export function Category ({title, icon: Icon, checked = false, hasCheckBox = fal
                                 width={48}
                                 height={48}
                             />
-                        <Text style={styles.title}>
+                        <Text style={styles.title} accessibilityRole="text">
                             {title}
                         </Text>
                     </LinearGradient>

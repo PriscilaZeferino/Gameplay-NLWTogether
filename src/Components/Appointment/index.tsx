@@ -36,14 +36,14 @@ export type GuildProps = {
       return(
 
       <RectButton {...rest}>
-      <View style={styles.container}>
+      <View style={styles.container} accessible={true}>
           <GuildIcon/>
           <View style={styles.content}>
           <View style={styles.header}>
-            <Text style={styles.title}>
+            <Text style={styles.title} accessibilityRole="text">
                 {data.guild.name}
             </Text>
-            <Text style={styles.category}>
+            <Text style={styles.category} accessibilityRole="text">
               {category.title}
             </Text>
           </View>
@@ -51,7 +51,7 @@ export type GuildProps = {
           <View style={styles.footer}>
             <View style={styles.dateInfo}>
                 <CalendarSvg/>
-                <Text style={styles.date}>
+                <Text style={styles.date} accessibilityRole="text">
                     {data.date}
                 </Text>
             </View>
@@ -62,7 +62,9 @@ export type GuildProps = {
                 <Text style={[
                     styles.player,
                     {color: owner ? primary : on}
-                ]}>
+                ]}
+                    accessibilityRole="text"
+                >
                     {owner ?  'Anfitrião' : 'Visitante'}
                 </Text>
             </View>

@@ -59,9 +59,15 @@ export function Home ()
     }
     return(
         <Background>
-            <View style={styles.header}>
+            <View style={styles.header} accessible={true}>
                 <Profile/>
-                <ButtonAdd onPress={handleAppointmentCreate}/>
+                <ButtonAdd 
+                    onPress={handleAppointmentCreate}
+                    accessibilityLabel="Agendar Nova Partida"
+                    onAccessibilityAction={handleAppointmentCreate}
+                
+
+                />
             </View>
             <View>
                 <CategorySelect
