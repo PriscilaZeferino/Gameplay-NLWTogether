@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, FlatList } from 'react-native';
 
-import { Guild, GuildProps } from '../../Components/GuildIcon'
-import { ListDivider } from '../../components/ListDivider';
+import { GuildProps } from '../../Components/Guild';
+import { Guild } from '../../Components/Guild'
+
+import { ListDivider } from '../../Components/ListDivider';
 
 import { styles } from './styles';
 
