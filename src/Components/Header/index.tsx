@@ -12,6 +12,7 @@ import { TouchableOpacityProps } from 'react-native';
 type Props = BorderlessButtonProps & TouchableOpacityProps & {
   title: string;
   action?: ReactNode;
+
 }
 
 export function Header({ title, action}: Props ){
@@ -33,20 +34,20 @@ export function Header({ title, action}: Props ){
         <TouchableOpacity 
             accessibilityLabel="Voltar"
             accessibilityHint="Voltar para tela anterior"
+            onPress={handleGoBack}  
+
         >
-            <BorderlessButton 
-                onPress={handleGoBack}  
-            >
-                <Feather name="arrow-left" size={24} color={heading}/>
-            </BorderlessButton>
+            <Feather name="arrow-left" size={24} color={heading}/>
         </TouchableOpacity>
+        
         <Text style={styles.title}>
             {title}
         </Text>
 
-        {
-            action &&
-            <View>
+        {action &&
+            <View 
+                accessible={true}
+            >
                 {action}
             </View>
         }

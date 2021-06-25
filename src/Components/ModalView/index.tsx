@@ -14,6 +14,7 @@ export function ModalView({children, ...rest} : Props) {
             transparent
             animationType="slide"
             {...rest}
+            accessibilityRole="text"
         >
             <View style={styles.overlay}>
                 <View style={styles.container}>

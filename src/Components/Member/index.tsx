@@ -26,11 +26,14 @@ export function Member({data} : Props) {
     const isOnline = data.status === 'online';
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container} accessible={true}>
             <Avatar urlImage={data.avatar_url}/>
 
             <View>
-                <Text style={styles.title}>
+                <Text 
+                    style={styles.title}
+                    accessibilityRole="text"    
+                >
                     {data.username}
                 </Text>
 
@@ -44,7 +47,7 @@ export function Member({data} : Props) {
                         ]}
                     />
 
-                    <Text style={styles.nameStatus}>
+                    <Text style={styles.nameStatus} accessibilityRole="text">
                         {isOnline ? 'Disponivel': 'Ocupado'}
                     </Text>
 

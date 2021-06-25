@@ -31,7 +31,7 @@ export function Category ({title, icon: Icon, checked = false, hasCheckBox = fal
                     style={styles.container}
                     colors={[secondary50, secondary70]}
                     accessibilityHint={
-                        checked ?  'Categoria' + title + ' já está selecionada' :
+                        checked ?  'Categoria' + title + ' selecionada. Toque-me novamente para desmarcar' :
                         "Selecionar Categoria" + title
                     }
                 >

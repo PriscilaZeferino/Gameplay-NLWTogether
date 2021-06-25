@@ -21,6 +21,8 @@ import { Background } from '../../Components/Background';
 import { Header } from '../../Components/Header'
 import { ListHeader } from '../../Components/ListHeader';
 import { Member } from '../../Components/Member';
+import { TouchableOpacity } from 'react-native';
+import { ButtonIcon } from '../../Components/ButtonIcon';
 
 export function AppointmentDetails () {
     const members = [
@@ -48,6 +50,9 @@ export function AppointmentDetails () {
                             name="share"
                             size={24}
                             color={theme.colors.primary}
+                            accessibilityRole="text"
+                            accessibilityLabel="Compartilhar"
+                            accessibilityHint="Compartilhar nas redes sociais" 
                         />
                     </BorderlessButton>
                 }
@@ -84,9 +89,9 @@ export function AppointmentDetails () {
                 style={styles.members}
             />
 
-            {/* <View style={styles.footer}>
+            <View style={styles.footer}>
                     <ButtonIcon title="Entrar na partida"/>
-            </View> */}
+            </View>
 
         </Background>
 
