@@ -8,9 +8,12 @@ import IllustrationImg from '../../assets/illustration.png'
 import { ButtonIcon } from '../../Components/ButtonIcon'
 import { Background } from '../../Components/Background';
 
+import {useAuth} from '../../hooks/auth'
+
 export function SignIn() {
 
   const navigation = useNavigation();
+  const {user} = useAuth()
 
   function handleSignIn(){
     navigation.navigate('Home');
