@@ -1,6 +1,6 @@
 import React from 'react';
 import  {NavigationContainer} from '@react-navigation/native'
-import {AuthRoutes} from './auth.routes'
+import {AppRoutes} from './app.routes'
 import { useAuth } from '../hooks/auth';
 import { SignIn } from '../screens/SignIn';
 import { useRef } from 'react-native/node_modules/@types/react';
@@ -13,7 +13,7 @@ export function Routes () {
         <NavigationContainer>
             {
                 user.id ? 
-                <AuthRoutes/>
+                <AppRoutes/>
                 :
                 <SignIn/>
             }

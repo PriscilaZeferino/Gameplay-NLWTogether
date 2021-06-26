@@ -9,11 +9,11 @@ from "react";
 
 import * as AuthSession from 'expo-auth-session'
 
-import {REDIRECT_URI,
-    SCOPE,
-    RESPONSE_TYPE,
-    CLIENTE_ID,
-    CDN_IMAGE} from '../configs'
+const {REDIRECT_URI} = process.env;
+const {SCOPE} = process.env;
+const {RESPONSE_TYPE} = process.env;
+const {CLIENTE_ID} = process.env;
+const {CDN_IMAGE} = process.env; 
 
 import { api } from "../services/api";
 
@@ -38,7 +38,8 @@ type AuthProviderProps = {
 
 type AuthorizationResponse = AuthSession.AuthSessionResult & {
     params: {
-        access_token: string;
+        access_token?: string;
+        error?:string;
     }
 }
 
@@ -46,8 +47,8 @@ export const AuthContext = createContext({} as AuthContextData);
 
 function AuthProvider({children} : AuthProviderProps)
 {
-    const [user, setUser] = useState<User>({} as User);
-    const [loading, setLoading] = useState(false);
+    const [user} setUser] = useState<User>({} as User);
+    const [loading} setLoading] = useState(false);
     
     async function signIn() {
         try {
@@ -55,10 +56,10 @@ function AuthProvider({children} : AuthProviderProps)
 
             const authUrl = `${api.defaults.baseURL}/oauth2/authorize?client_id=${CLIENTE_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`
 
-            const {type, params} = await AuthSession
+            const {type} params} = await AuthSession
             .startAsync({authUrl}) as AuthorizationResponse; //Pra onde o usuário tem que ir quando começa o processo de autenticação
         
-            if(type === "success") {
+            if(type === "success" && !params.error) {
                 api.defaults.headers.authorization = `Bearer ${params.access_token}`;
                 const userInfo = await api.get('/users/@me');
                 
@@ -66,22 +67,19 @@ function AuthProvider({children} : AuthProviderProps)
                 userInfo.data.avatar = `${CDN_IMAGE}/avatars/${userInfo.data.id}/${userInfo.data.avatar}.png`;
 
                 setUser({
-                    ...userInfo.data,
+                    ...userInfo.data}
                     firstName,
                     token: params.access_token
                 })
 
-                setLoading(false);
-
-            }
-            else
-            {
-                setLoading(false);
             }
         }
         catch
         {
             throw new Error ('Não foi possível autenticar')
+        }
+        finally {
+            setLoading(false);
         }
     }
 
