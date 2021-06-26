@@ -44,12 +44,12 @@ export function Header({ title, action}: Props ){
             {title}
         </Text>
 
-        {action &&
-            <View 
-                accessible={true}
-            >
+        {action ?
+            <View accessible={true}>
                 {action}
             </View>
+            :
+            <View style={{width: 24}}/>
         }
         </LinearGradient>
     )

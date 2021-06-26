@@ -37,6 +37,30 @@ export function AppointmentDetails () {
             username: 'Livia',
             avatar_url: 'https://github.com/PriscilaZeferino.png',
             status: 'offline'
+        },
+        {
+            id: '3',
+            username: 'Priscila',
+            avatar_url: 'https://github.com/PriscilaZeferino.png',
+            status: 'online'
+        },
+        {
+            id: '4',
+            username: 'Livia',
+            avatar_url: 'https://github.com/PriscilaZeferino.png',
+            status: 'offline'
+        },
+        {
+            id: '5',
+            username: 'Priscila',
+            avatar_url: 'https://github.com/PriscilaZeferino.png',
+            status: 'online'
+        },
+        {
+            id: '6',
+            username: 'Livia',
+            avatar_url: 'https://github.com/PriscilaZeferino.png',
+            status: 'offline'
         }
     ]
 
@@ -87,6 +111,8 @@ export function AppointmentDetails () {
                 )}
                 ItemSeparatorComponent={() => <ListDivider/>}
                 style={styles.members}
+                contentContainerStyle={{paddingBottom: 69}}
+
             />
 
             <View style={styles.footer}>

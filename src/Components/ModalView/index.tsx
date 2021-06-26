@@ -1,21 +1,24 @@
 import React,{ReactNode} from 'react'
-import {Image, View, Modal, ModalProps} from 'react-native'
+import {Image, View, Modal, ModalProps, TouchableWithoutFeedback} from 'react-native'
 import { Background } from '../Background';
 
 import {styles} from './styles';
 
 type Props = ModalProps & {
-    children: ReactNode   
+    children: ReactNode;
+    closeModal: () => void
 }
 
-export function ModalView({children, ...rest} : Props) {
+export function ModalView({children, closeModal, ...rest} : Props) {
     return (
         <Modal
             transparent
             animationType="slide"
             {...rest}
             accessibilityRole="text"
+            statusBarTranslucent
         >
+            <TouchableWithoutFeedback onPress={closeModal}>
             <View style={styles.overlay}>
                 <View style={styles.container}>
                     <Background>
@@ -24,6 +27,7 @@ export function ModalView({children, ...rest} : Props) {
                     </Background>
                 </View>
             </View>
+            </TouchableWithoutFeedback>
         </Modal>
     )
 }
