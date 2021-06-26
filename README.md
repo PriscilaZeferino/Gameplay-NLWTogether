@@ -9,7 +9,7 @@
 </p>
 
 
-![cover](.github/cover.png?style=flat)
+![cover](.github/Capa.png?style=flat)
 
 
 ## 💻 Projeto
