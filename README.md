@@ -13,8 +13,9 @@
 
 
 ## 💻 Projeto
-Aplicativo para lhe ajudar a conectar-se e organiza o momento de diversão e jogar com os amigos. Crie grupos para jogar seus games favoritos com seus amigos com esse App que possui autenticação com Discord.
 
+Aplicativo para lhe ajudar a conectar-se e organiza o momento de diversão e jogar com os amigos. Crie grupos para jogar seus games favoritos com seus amigos com esse App que possui autenticação com Discord desenvolvido durante a NLWTogether da @rockeseat. Uma semana intensa e cheia de conteúdo que tem o objetivo de 
+elevar a suas habilidades para o próximo nivel. 
 
 ## :hammer_and_wrench: Features 
 
@@ -56,7 +57,7 @@ Aplicativo para lhe ajudar a conectar-se e organiza o momento de diversão e jog
 
 ## 🔖 Layout
 
-Você pode visualizar o layout do projeto através [desse link](https://www.figma.com/file/0kv33XYjvOgvKGKHBaiR07/GamePlay-NLW-Together?node-id=58913%3A83). 
+Você pode visualizar o layout do projeto através [desse link](https://www.figma.com/file/y3wjgTD2azd8xcSUN5BBiF/GamePlay-(Copy)?node-id=0%3A1). 
 É necessário ter conta no [Figma](http://figma.com/) para acessá-lo.
 
 
