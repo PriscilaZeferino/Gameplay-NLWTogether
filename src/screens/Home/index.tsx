@@ -123,9 +123,7 @@ export function Home ()
                 <Profile/>
                 <ButtonAdd 
                     onPress={handleAppointmentCreate}
-                    accessibilityLabel="Agendar Nova Partida"
-                    onAccessibilityAction={handleAppointmentCreate}
-                
+                    accessibilityLabel="Agendar Nova Partida"                
 
                 />
             </View>
