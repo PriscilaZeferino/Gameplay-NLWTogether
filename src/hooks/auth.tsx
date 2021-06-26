@@ -47,8 +47,8 @@ export const AuthContext = createContext({} as AuthContextData);
 
 function AuthProvider({children} : AuthProviderProps)
 {
-    const [user} setUser] = useState<User>({} as User);
-    const [loading} setLoading] = useState(false);
+    const [user, setUser] = useState<User>({} as User);
+    const [loading, setLoading] = useState(false);
     
     async function signIn() {
         try {
@@ -56,7 +56,7 @@ function AuthProvider({children} : AuthProviderProps)
 
             const authUrl = `${api.defaults.baseURL}/oauth2/authorize?client_id=${CLIENTE_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`
 
-            const {type} params} = await AuthSession
+            const {type, params} = await AuthSession
             .startAsync({authUrl}) as AuthorizationResponse; //Pra onde o usuário tem que ir quando começa o processo de autenticação
         
             if(type === "success" && !params.error) {
@@ -67,7 +67,7 @@ function AuthProvider({children} : AuthProviderProps)
                 userInfo.data.avatar = `${CDN_IMAGE}/avatars/${userInfo.data.id}/${userInfo.data.avatar}.png`;
 
                 setUser({
-                    ...userInfo.data}
+                    ...userInfo.data,
                     firstName,
                     token: params.access_token
                 })
