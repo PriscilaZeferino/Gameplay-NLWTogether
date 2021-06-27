@@ -1,7 +1,7 @@
-export const theme = {
-  colors: {
-    primary: '#E51C44',
 
+export const theme = {
+  colors: {    
+    primary: '#E51C44',
     secondary100: '#0A1033',
     secondary90: '#0D133D',    
     secondary80: '#0E1647',
@@ -28,3 +28,4 @@ export const theme = {
     text500: 'Inter_500Medium',
   }
 };
+

@@ -35,5 +35,12 @@ export const styles = StyleSheet.create({
         paddingVertical:20,
         marginBottom: getBottomSpace()
 
-    }
-})
+    },
+    emptyContainer: {
+        alignItems: 'center',
+      },
+      emptyText: {
+        fontFamily: theme.fonts.text500,
+        color: theme.colors.heading
+      }
+});

@@ -3,8 +3,6 @@ import { getStatusBarHeight } from "react-native-iphone-x-helper";
 import { theme } from "../../global/styles/theme";
 import { useAuth } from "../../hooks/auth";
 
-const {colorScheme} = useAuth()
-
 export const styles = StyleSheet.create({
     container: {
         width: '100%',
@@ -18,8 +16,8 @@ export const styles = StyleSheet.create({
     title: {
         flex: 1,
         textAlign: "center",
-        fontFamily: `theme.${colorScheme}.fonts.title700`,
+        fontFamily: theme.fonts.title700,
         fontSize: 20,
-        color: `theme.${colorScheme}.colors.heading`
+        color: theme.colors.heading
     }
 })

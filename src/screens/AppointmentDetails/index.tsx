@@ -28,7 +28,7 @@ import { TouchableOpacity } from 'react-native';
 
 import { ButtonIcon } from '../../Components/ButtonIcon';
 
-import {useRoute} from '@react-navigation/native';
+import {Link, useRoute} from '@react-navigation/native';
 import { AppointmentProps } from '../../Components/Appointment';
 import { api } from '../../services/api';
 import { useEffect } from 'react';
@@ -55,14 +55,19 @@ export function AppointmentDetails () {
     const [GuildWidget, setGuildWidget] = useState<GuildWidget>({} as GuildWidget);
     const [loading, setLoading] = useState(true);
 
+    const [totalMembers, setTotalMembers] = useState<Number>(0);
+
+
+
     async function fetchGuildInfo() {
         try {
             const response = await api.get(`/guilds/${guildSelected.guild.id}/widget.json`);
             setGuildWidget(response.data);
+            (response.data.members.length !== undefined) ? setTotalMembers(response.data.members.length) : 0;
         } 
-        catch (error) 
+        catch
         {
-            Alert.alert("Verifique as configuraçoes do servidor. Sera que o widget está habilitado? :/ ");
+            Alert.alert("Verifique as configurações do servidor. Sera que o widget está habilitado? :/ ");
         }
         finally{
             setLoading(false);
@@ -70,19 +75,42 @@ export function AppointmentDetails () {
     }        
 
     function handleShareInvitation () {
-        const message = Platform.OS === 'ios' 
-        ? `Junte-se a ${guildSelected.guild.name}` 
-        : GuildWidget.instant_invite;
 
-        Share.share({
-            message,
-            url: GuildWidget.instant_invite
-        })
+
+        const invite = GuildWidget.instant_invite;
+
+        if(invite !== null)
+        {
+            const message = Platform.OS === 'ios' 
+            ? `Junte-se a ${guildSelected.guild.name}` 
+            : GuildWidget.instant_invite;
+    
+            Share.share({
+                message,
+                url: GuildWidget.instant_invite
+            })        }
+        else
+        {
+            Alert.alert("Não foi possivel redirecionar para o servidor!");
+        }
+
+
 
     }
 
     function handleOpenGuild() {
-        Linking.openURL(GuildWidget.instant_invite);
+
+        const invite = GuildWidget.instant_invite;
+        console.log(invite);
+
+        if(invite !== null)
+        {
+            Linking.openURL(GuildWidget.instant_invite);
+        }
+        else
+        {
+            Alert.alert("Não foi possivel redirecionar para o servidor!");
+        }
     }
 
     useEffect(() => {
@@ -129,11 +157,11 @@ export function AppointmentDetails () {
      <>
             <ListHeader
                 title="Jogadores"
-                subtitle={`Total${GuildWidget.members.length}`  }   
+                subtitle={`Total ${totalMembers}`}  
             />
 
             <FlatList
-                data={GuildWidget.members}
+                data={GuildWidget.members ? GuildWidget.members : []}
                 keyExtractor={item => item.id}
                 renderItem={({item}) => (
                     <Member data={item}/>
@@ -141,8 +169,14 @@ export function AppointmentDetails () {
                 ItemSeparatorComponent={() => <ListDivider isCentered/>}
                 style={styles.members}
                 contentContainerStyle={{paddingBottom: 69}}
-
-            />
+                ListEmptyComponent={() => ( 
+                    <View style={styles.emptyContainer}>
+                      <Text style={styles.emptyText}>
+                        Não há ninguém online agora.
+                      </Text>
+                    </View>
+                  )}
+                />
             </>
             }
 
