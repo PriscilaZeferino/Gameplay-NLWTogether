@@ -1,122 +1,65 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import { View, Text, FlatList } from 'react-native';
+
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { ButtonAdd } from '../../Components/ButtonAdd';
 import { CategorySelect } from '../../Components/CategorySelect';
 import { ListHeader } from '../../Components/ListHeader';
 import { Profile } from '../../Components/Profile';
-import {Appointment} from '../../Components/Appointment'
+import {Appointment, AppointmentProps} from '../../Components/Appointment'
 import { ListDivider } from '../../Components/ListDivider';
 
 import { styles } from './styles';
 import { Background } from '../../Components/Background';
-import { useNavigation } from '@react-navigation/native';
+import { COLLECTION_APPOINTMENTS } from '../../configs/database';
+import { Load } from '../../Components/Load';
+
+import { useNavigation, useFocusEffect} from '@react-navigation/native';
+
 
 export function Home ()
 {
-
-    const [category, setCategory] = useState('')
-
-    const appoinments = [
-        {
-            id: '1',
-            guild: {
-                id: '1',
-                name: 'Lendários',
-                icon: null,
-                owner: true
-            },
-            category: '1',
-            date: '22/06 as 20:40h',
-            description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
-        },
-        {
-            id: '2',
-            guild: {
-                id: '1',
-                name: 'Lendários',
-                icon: null,
-                owner: true
-            },
-            category: '1',
-            date: '22/06 as 20:40h',
-            description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
-        },
-        {
-            id: '3',
-            guild: {
-                id: '1',
-                name: 'Lendários',
-                icon: null,
-                owner: true
-            },
-            category: '1',
-            date: '22/06 as 20:40h',
-            description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
-        },
-        {
-            id: '4',
-            guild: {
-                id: '1',
-                name: 'Lendários',
-                icon: null,
-                owner: true
-            },
-            category: '1',
-            date: '22/06 as 20:40h',
-            description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
-        },
-        {
-            id: '5',
-            guild: {
-                id: '1',
-                name: 'Lendários',
-                icon: null,
-                owner: true
-            },
-            category: '1',
-            date: '22/06 as 20:40h',
-            description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
-        },
-        {
-            id: '6',
-            guild: {
-                id: '1',
-                name: 'Lendários',
-                icon: null,
-                owner: true
-            },
-            category: '1',
-            date: '22/06 as 20:40h',
-            description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
-        },
-        {
-            id: '7',
-            guild: {
-                id: '1',
-                name: 'Lendários',
-                icon: null,
-                owner: true
-            },
-            category: '1',
-            date: '22/06 as 20:40h',
-            description: 'É hoje que vamos chegar ao challenger sem perder uma partida da md10'
-        }
-    ]
+    const [category, setCategory] = useState('');
+    const[loading, setLoading] = useState(true);
+    const [appointments, setAppointments] = useState<AppointmentProps[]>([]);
 
     const navigation =  useNavigation();
 
     function handleCategorySelect(categoryId: string) {
-        categoryId === category ? setCategory('') : setCategory(categoryId)
+        categoryId === category ? setCategory('') : setCategory(categoryId);
     }
 
-    function handleAppointmentDetails () {
-        navigation.navigate('AppointmentDetails')
+    function handleAppointmentDetails (guildSelected: AppointmentProps) {
+        navigation.navigate('AppointmentDetails', {guildSelected})
     }
 
     function handleAppointmentCreate () {
         navigation.navigate('AppointmentCreate')
     }
+
+    async function loadAppointments()
+    {
+        const response = await AsyncStorage.getItem(COLLECTION_APPOINTMENTS);
+
+        const storage: AppointmentProps[] = response ? JSON.parse(response) : [];  
+        
+        if(category)
+        {
+            setAppointments(storage.filter(item => item.category === category));
+        }
+        else
+        {
+            setAppointments(storage);
+        }
+
+        setLoading(false);
+    }
+
+    useFocusEffect(useCallback(() =>{
+        loadAppointments()
+    },[category]))
+
     return(
         <Background>
             <View style={styles.header} accessible={true}>
@@ -134,17 +77,19 @@ export function Home ()
                 /> 
             </View>
 
-                <ListHeader
+                { loading ? <Load/> :
+                    <>
+                    <ListHeader
                     title="Partidas Agendadas"
-                    subtitle="Total 6"
+                    subtitle={`Total ${appointments.length}`}
                 />
 
                     <FlatList
-                        data={appoinments}
+                        data={appointments}
                         keyExtractor={item => item.id}
                         renderItem={({item}) =>
                             <Appointment data={item}
-                                onPress={handleAppointmentDetails}
+                                onPress={() => handleAppointmentDetails(item)}
                             />                            
                         }
                         ItemSeparatorComponent={() => <ListDivider/>}
@@ -152,6 +97,8 @@ export function Home ()
                         showsVerticalScrollIndicator={false}
                         contentContainerStyle={{paddingBottom: 69}}
                     />
+                    </>
+                    }
 
         </Background>
     )

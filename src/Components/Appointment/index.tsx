@@ -38,7 +38,7 @@ import { LinearGradient } from 'expo-linear-gradient';
             style={styles.guildIconContainer}
             colors={[secondary50, secondary70]}
           >
-            <GuildIcon/>
+            <GuildIcon guildId={data.guild.id} iconId={data.guild.icon}/>
           </LinearGradient>
 
           <View style={styles.content}>
@@ -47,7 +47,7 @@ import { LinearGradient } from 'expo-linear-gradient';
                 {data.guild.name}
             </Text>
             <Text style={styles.category} accessibilityRole="text">
-              {category.title}
+              {category && category.title}
             </Text>
           </View>
 

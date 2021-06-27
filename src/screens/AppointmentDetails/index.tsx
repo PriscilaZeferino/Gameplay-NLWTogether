@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useState}from 'react';
 import { Fontisto } from '@expo/vector-icons';
 import { BorderlessButton } from 'react-native-gesture-handler';
-
+import * as Linking from 'expo-linking'
 import {
   ImageBackground,
   Text,
   View,
-  FlatList
+  FlatList,
+  Alert,
+  Share,
+  Platform
 } from 'react-native';
 
 import { theme } from '../../global/styles/theme';
@@ -20,55 +23,77 @@ import { Background } from '../../Components/Background';
 // import { Member } from '../../components/Member';
 import { Header } from '../../Components/Header'
 import { ListHeader } from '../../Components/ListHeader';
-import { Member } from '../../Components/Member';
+import { Member, MemberProps } from '../../Components/Member';
 import { TouchableOpacity } from 'react-native';
+
 import { ButtonIcon } from '../../Components/ButtonIcon';
 
-export function AppointmentDetails () {
-    const members = [
-        {
-            id: '1',
-            username: 'Priscila',
-            avatar_url: 'https://github.com/PriscilaZeferino.png',
-            status: 'online'
-        },
-        {
-            id: '2',
-            username: 'Livia',
-            avatar_url: 'https://github.com/PriscilaZeferino.png',
-            status: 'offline'
-        },
-        {
-            id: '3',
-            username: 'Priscila',
-            avatar_url: 'https://github.com/PriscilaZeferino.png',
-            status: 'online'
-        },
-        {
-            id: '4',
-            username: 'Livia',
-            avatar_url: 'https://github.com/PriscilaZeferino.png',
-            status: 'offline'
-        },
-        {
-            id: '5',
-            username: 'Priscila',
-            avatar_url: 'https://github.com/PriscilaZeferino.png',
-            status: 'online'
-        },
-        {
-            id: '6',
-            username: 'Livia',
-            avatar_url: 'https://github.com/PriscilaZeferino.png',
-            status: 'offline'
-        }
-    ]
+import {useRoute} from '@react-navigation/native';
+import { AppointmentProps } from '../../Components/Appointment';
+import { api } from '../../services/api';
+import { useEffect } from 'react';
+import { Load } from '../../Components/Load';
 
+type Params = {
+    guildSelected: AppointmentProps
+}
+
+type GuildWidget = {
+    id: string;
+    name: string;
+    instant_invite: string;
+    members: MemberProps[];
+    presence_count: number;
+}
+
+export function AppointmentDetails () {
+    
+    const route = useRoute();
+
+    const {guildSelected} = route.params as Params;
+
+    const [GuildWidget, setGuildWidget] = useState<GuildWidget>({} as GuildWidget);
+    const [loading, setLoading] = useState(true);
+
+    async function fetchGuildInfo() {
+        try {
+            const response = await api.get(`/guilds/${guildSelected.guild.id}/widget.json`);
+            setGuildWidget(response.data);
+        } 
+        catch (error) 
+        {
+            Alert.alert("Verifique as configuraçoes do servidor. Sera que o widget está habilitado? :/ ");
+        }
+        finally{
+            setLoading(false);
+        }
+    }        
+
+    function handleShareInvitation () {
+        const message = Platform.OS === 'ios' 
+        ? `Junte-se a ${guildSelected.guild.name}` 
+        : GuildWidget.instant_invite;
+
+        Share.share({
+            message,
+            url: GuildWidget.instant_invite
+        })
+
+    }
+
+    function handleOpenGuild() {
+        Linking.openURL(GuildWidget.instant_invite);
+    }
+
+    useEffect(() => {
+        fetchGuildInfo();
+    }, [])
     return (
         <Background>
             <Header
                 title="Detalhes"
                 action={
+                    guildSelected.guild.owner && 
                     <BorderlessButton>
                         <Fontisto
                             name="share"
@@ -77,6 +102,7 @@ export function AppointmentDetails () {
                             accessibilityRole="text"
                             accessibilityLabel="Compartilhar"
                             accessibilityHint="Compartilhar nas redes sociais" 
+                            onPress={handleShareInvitation}
                         />
                     </BorderlessButton>
                 }
@@ -88,23 +114,26 @@ export function AppointmentDetails () {
             >
                 <View style={styles.bannerContent}>
                     <Text style={styles.title}>
-                        Lendários
+                        {guildSelected.guild.name}
                     </Text>
 
                     <Text style={styles.subtitle}>
-                        É hoje que vamos chegar ao challenger sem perder uma partida da md10
+                        {guildSelected.description}
                     </Text>
                 </View>
 
             </ImageBackground>
-
+{
+     loading ? <Load/> :
+     
+     <>
             <ListHeader
                 title="Jogadores"
-                subtitle="Total 3"        
+                subtitle={`Total${GuildWidget.members.length}`  }   
             />
 
             <FlatList
-                data={members}
+                data={GuildWidget.members}
                 keyExtractor={item => item.id}
                 renderItem={({item}) => (
                     <Member data={item}/>
@@ -114,10 +143,23 @@ export function AppointmentDetails () {
                 contentContainerStyle={{paddingBottom: 69}}
 
             />
+            </>
+            }
 
-            <View style={styles.footer}>
-                    <ButtonIcon title="Entrar na partida"/>
-            </View>
+            {
+                guildSelected.guild.owner && 
+                <View style={styles.footer}>
+                    <ButtonIcon 
+                        onPress={handleOpenGuild}
+                        title="Entrar na partida"
+                        accessibilityRole="button"
+                        accessibilityLabel="Entrar na partir"
+                        accessibilityHint="Abrir o servidor no discord" 
+    
+                    />
+                </View>
+            }
+            
 
         </Background>
 
