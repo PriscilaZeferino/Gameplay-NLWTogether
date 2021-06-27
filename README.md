@@ -34,6 +34,9 @@ elevar a suas habilidades para o próximo nivel.
 
 -   [ ] Gerar frases de status aleatórias
 -   [ ] Disponibilizar temas personalizados
+-   [ ] Adicionar tema claro ou escurdo dependendo da definição padrão do usuário
+-   [ ] Excluir agendamentos
+-   [ ] Criar um alert personalizado  
 
 ## ✨ Tecnologias
 
