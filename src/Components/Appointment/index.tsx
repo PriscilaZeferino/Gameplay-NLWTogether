@@ -11,6 +11,7 @@ import { categories } from '../../utils/categories';
 import { theme } from '../../global/styles/theme';
 import { GuildProps } from '../Guild';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useAuth } from '../../hooks/auth';
 
   
   export type AppointmentProps = {
@@ -28,7 +29,10 @@ import { LinearGradient } from 'expo-linear-gradient';
   export function Appointment({data, ...rest} : Props) {
       const [category] = categories.filter(item=> item.id === data.category);
       const {owner} = data.guild;
-      const {primary, on, secondary50, secondary70} = theme.colors;
+      // const {primary, on, secondary50, secondary70} = `theme.${colorScheme}.colors`;
+
+      const {colorScheme} = useAuth();
+      
       return(
 
       <RectButton {...rest}>
@@ -36,7 +40,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
           <LinearGradient
             style={styles.guildIconContainer}
-            colors={[secondary50, secondary70]}
+            colors={[`theme.${colorScheme}.colors.secondary50`,` theme.${colorScheme}.colors.secondary70`]}
           >
             <GuildIcon guildId={data.guild.id} iconId={data.guild.icon}/>
           </LinearGradient>
@@ -60,11 +64,11 @@ import { LinearGradient } from 'expo-linear-gradient';
             </View>
 
             <View style={styles.playersInfo}>
-                <PlayerSvg fill={owner ? primary : on}/>
+                <PlayerSvg fill={owner ? `theme.${colorScheme}.colors.primary` : `theme.${colorScheme}.colors.on`}/>
 
                 <Text style={[
                     styles.player,
-                    {color: owner ? primary : on}
+                    {color: owner ? `theme.${colorScheme}.colors.primary` : `theme.${colorScheme}.colors.on`}
                 ]}
                     accessibilityRole="text"
                 >

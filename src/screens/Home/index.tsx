@@ -21,7 +21,7 @@ import { useNavigation, useFocusEffect} from '@react-navigation/native';
 export function Home ()
 {
     const [category, setCategory] = useState('');
-    const[loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
     const [appointments, setAppointments] = useState<AppointmentProps[]>([]);
 
     const navigation =  useNavigation();

@@ -1,5 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { theme } from '../../global/styles/theme';
+import { useAuth } from '../../hooks/auth';
+
+const {colorScheme} = useAuth();
 
 export const styles = StyleSheet.create({ 
 
@@ -18,13 +21,13 @@ export const styles = StyleSheet.create({
         marginBottom: 12,
     },
     title: {
-        fontFamily: theme.fonts.title700,
-        color: theme.colors.heading,
+        fontFamily: `theme.${colorScheme}.fonts.title700`,
+        color: `theme.${colorScheme}.colors.heading`,
         fontSize: 18
     },
     category: {
-        fontFamily: theme.fonts.text400,
-        color: theme.colors.highlight,
+        fontFamily: `theme.${colorScheme}.fonts.text400`,
+        color: `theme.${colorScheme}.colors.highlight`,
         fontSize: 13,
         marginRight: 24
     },
@@ -42,13 +45,13 @@ export const styles = StyleSheet.create({
         alignItems: 'center'
     },
     date: {
-        fontFamily: theme.fonts.text500,
-        color: theme.colors.heading,
+        fontFamily: `theme.${colorScheme}.fonts.text500`,
+        color: `theme.${colorScheme}.colors.heading`,
         fontSize: 13,
         marginLeft: 7,
     },
     player: {
-        fontFamily: theme.fonts.text500,
+        fontFamily: `theme.${colorScheme}.fonts.text500`,
         fontSize: 13,
         marginLeft: 7,
         marginRight: 24,
