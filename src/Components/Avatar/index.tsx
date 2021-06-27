@@ -9,13 +9,12 @@ type Props = {
     urlImage: string;
 }
 export function Avatar({urlImage}: Props) {
-    // const {secondary50, secondary70} = theme.colors;
+    const {secondary50, secondary70} = theme.colors;
 
-    const {colorScheme} = useAuth();
     return  (
         <LinearGradient
             style={styles.container}
-            colors={[`theme.${colorScheme}.colors.secondary50`, `theme.${colorScheme}.colors.secondary70`]}
+            colors={[secondary50, secondary70]}
         >
         <Image 
             source={{uri: urlImage}}

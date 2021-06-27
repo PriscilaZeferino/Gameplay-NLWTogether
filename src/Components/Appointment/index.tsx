@@ -29,9 +29,7 @@ import { useAuth } from '../../hooks/auth';
   export function Appointment({data, ...rest} : Props) {
       const [category] = categories.filter(item=> item.id === data.category);
       const {owner} = data.guild;
-      // const {primary, on, secondary50, secondary70} = `theme.${colorScheme}.colors`;
-
-      const {colorScheme} = useAuth();
+      const {primary, on, secondary50, secondary70} = theme.colors;
       
       return(
 
@@ -40,7 +38,7 @@ import { useAuth } from '../../hooks/auth';
 
           <LinearGradient
             style={styles.guildIconContainer}
-            colors={[`theme.${colorScheme}.colors.secondary50`,` theme.${colorScheme}.colors.secondary70`]}
+            colors={[secondary50,secondary70]}
           >
             <GuildIcon guildId={data.guild.id} iconId={data.guild.icon}/>
           </LinearGradient>
@@ -64,11 +62,11 @@ import { useAuth } from '../../hooks/auth';
             </View>
 
             <View style={styles.playersInfo}>
-                <PlayerSvg fill={owner ? `theme.${colorScheme}.colors.primary` : `theme.${colorScheme}.colors.on`}/>
+                <PlayerSvg fill={owner ?  primary : on}/>
 
                 <Text style={[
                     styles.player,
-                    {color: owner ? `theme.${colorScheme}.colors.primary` : `theme.${colorScheme}.colors.on`}
+                    {color: owner ? primary : on}
                 ]}
                     accessibilityRole="text"
                 >
