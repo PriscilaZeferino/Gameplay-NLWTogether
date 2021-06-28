@@ -1,7 +1,7 @@
 import React from 'react';
 import { StatusBar, LogBox} from 'react-native';
 
-LogBox.ignoreLogs(['You are not currently signed in to Expo on your development machine.']);
+// LogBox.ignoreLogs(['You are not currently signed in to Expo on your development machine.']);
 
 
 import {useFonts} from 'expo-font'

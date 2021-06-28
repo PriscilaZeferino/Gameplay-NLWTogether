@@ -11,8 +11,6 @@ import { categories } from '../../utils/categories';
 import { theme } from '../../global/styles/theme';
 import { GuildProps } from '../Guild';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useAuth } from '../../hooks/auth';
-
   
   export type AppointmentProps = {
     id: string;
