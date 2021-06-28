@@ -37,6 +37,7 @@ elevar a suas habilidades para o próximo nivel.
 -   [ ] Adicionar tema claro ou escurdo dependendo da definição padrão do usuário
 -   [ ] Excluir agendamentos
 -   [ ] Criar um alert personalizado  
+-   [ ] Adiciona notificação local com base nos agendamentos
 
 ## ✨ Tecnologias
 
